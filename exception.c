@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   exception.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/04 20:36:57 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/07 16:34:35 by mkim3            ###   ########.fr       */
+/*   Created: 2022/05/07 16:12:38 by mkim3             #+#    #+#             */
+/*   Updated: 2022/05/07 16:33:40 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int main(int args, char **argv)
+void exception()
 {
-	int fd;
-	if (args != 2)
-		exception();
-	fd = open(argv[1]);
-	if (fd < 0)
-		exception();
-	ft_read_map(fd);
+	write(2, "exception\n", 9);
+	exit(1);
+}
+
+void	memory_exception()
+{
+	write(2, "memory_exception\n", 15);
+	exit(1);
 }
