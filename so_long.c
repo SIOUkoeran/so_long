@@ -6,7 +6,7 @@
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:36:57 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/07 16:34:35 by mkim3            ###   ########.fr       */
+/*   Updated: 2022/05/07 18:15:32 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 int main(int args, char **argv)
 {
-	int fd;
+	t_map_info map_info;
+	
 	if (args != 2)
 		exception();
-	fd = open(argv[1]);
-	if (fd < 0)
+	map_info.fd = open(argv[1]);
+	if (map_info.fd < 0)
 		exception();
-	ft_read_map(fd);
+	map_info.map = ft_read_map(map_info.fd);
+	if (!map_info.map)
+		map_exception();
 }

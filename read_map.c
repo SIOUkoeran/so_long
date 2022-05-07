@@ -6,16 +6,85 @@
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 16:25:55 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/07 16:34:28 by mkim3            ###   ########.fr       */
+/*   Updated: 2022/05/07 18:38:53 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+static void ft_check_wall(char *map, int flag, char position)
+{
+	int	idx;
+
+	idx = -1;
+	if (flag)
+		while (map[++idx])
+			if (map[idx] != '1')
+				map_exception();
+	else
+		if (position != '1')
+			map_exception();
+}
+
+static t_check_map	count_map_info(t_check_map info, char c)
+{
+	if (c == 'C')
+		info.c++;
+	else if (c == 'P')
+		info.p++;
+	else if (c == 'E')
+		info.e++;
+	else if (c == '1')
+		info.wall++;
+	else if (c == '0')
+		info.road++;
+
+	return (info);
+}
+
+static void	check_map_info(t_check_map info)
+{
+	if (info.c < 1)
+		map_exception();
+	if (info.e < 1)
+		map_exception();
+	if (info.p != 1)
+		map_exception();
+}
+
+void	ft_check_map(char **map)
+{
+	t_check_map	map_info;
+	int			col_idx;
+	int			row_idx;
+	int			col_length;
+	int			row_length;
+
+	row_idx = -1;
+	if (!map)
+		memory_exception();
+	col_length = ft_strlen(map[0]);
+	check_map_wall(map, ROWCHECK);
+	while (map[++row_idx])
+	{
+		col_idx = 0;
+		ft_check_wall(map, COLCHECK, map[row_idx][col_idx]);
+		while (map[row_idx][col_idx])
+			map_info = count_map_info(map_info, map[row_idx][++col_idx]);
+		if (col_idx - 1 != col_length)
+			map_exception();
+		else
+			ft_check_wall(map[row_idx], COLCHECK, map[row_idx][col_idx - 1]);
+	}
+	check_map_wall(map[row_idx - 1], ROWCHECK, map[row_idx - 1][col_idx - 1]);
+	check_map_info(map_info);
+}
+
 char	**ft_read_map(int fd)
 {
 	char	*map_temp;
 	char	*temp;
+	char	**map;
 	
 	temp = get_next_line(fd);
 	if (!temp)
@@ -31,6 +100,8 @@ char	**ft_read_map(int fd)
 		temp = get_next_line(fd);
 	}
 	free(temp);
-	map_temp = ft_split(map_temp, '\n');
-	return (map_temp);
+	map = ft_split(map_temp, '\n');
+	ft_check_map(map);
+	free(map_temp);
+	return (map);
 }
