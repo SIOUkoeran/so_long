@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exception.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/07 16:12:38 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/08 15:58:39 by mkim3            ###   ########.fr       */
+/*   Created: 2021/11/15 21:22:22 by mkim3             #+#    #+#             */
+/*   Updated: 2021/12/02 15:08:17 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void exception()
+char	*ft_strchr(char const *s, int c)
 {
-	write(2, "parsing_exception\n", 18);
-	exit(1);
-}
+	int	i;
 
-void	memory_exception()
-{
-	write(2, "memory_exception\n", 17);
-	exit(1);
-}
-
-void map_exception()
-{
-	write(2, "Error\n", 6);
-	exit(1);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == c)
+			return ((char *)(s + i));
+		i++;
+	}
+	if (s[i] == c)
+		return ((char *)(s + i));
+	return (NULL);
 }

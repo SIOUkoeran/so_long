@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exception.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/07 16:12:38 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/08 15:58:39 by mkim3            ###   ########.fr       */
+/*   Created: 2021/12/02 15:46:48 by mkim3             #+#    #+#             */
+/*   Updated: 2021/12/22 21:54:43 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void exception()
-{
-	write(2, "parsing_exception\n", 18);
-	exit(1);
-}
-
-void	memory_exception()
-{
-	write(2, "memory_exception\n", 17);
-	exit(1);
-}
-
-void map_exception()
-{
-	write(2, "Error\n", 6);
-	exit(1);
+void	*ft_memmove(void *dest, const void *src, size_t len)
+{	
+	if (src >= dest)
+		return (ft_memcpy(dest, src, len));
+	while (len > 0)
+	{
+		len--;
+		((unsigned char *)dest)[len] = ((unsigned char *)src)[len];
+	}
+	return (dest);
 }

@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exception.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/07 16:12:38 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/08 15:58:39 by mkim3            ###   ########.fr       */
+/*   Created: 2021/12/06 17:07:35 by mkim3             #+#    #+#             */
+/*   Updated: 2021/12/22 22:07:36 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void exception()
+void	ft_putnbr_fd(int n, int fd)
 {
-	write(2, "parsing_exception\n", 18);
-	exit(1);
-}
-
-void	memory_exception()
-{
-	write(2, "memory_exception\n", 17);
-	exit(1);
-}
-
-void map_exception()
-{
-	write(2, "Error\n", 6);
-	exit(1);
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		if (n == -2147483648)
+			write(fd, "2147483648", 10);
+		else
+		{
+			n *= -1;
+			ft_putnbr_fd(n, fd);
+		}
+	}
+	else
+	{
+		if (n > 9)
+		{
+			ft_putnbr_fd(n / 10, fd);
+		}
+		n = 48 + n % 10;
+		write(fd, &n, 1);
+	}
 }

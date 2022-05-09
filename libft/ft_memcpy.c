@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exception.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/07 16:12:38 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/08 15:58:39 by mkim3            ###   ########.fr       */
+/*   Created: 2021/11/16 15:36:13 by mkim3             #+#    #+#             */
+/*   Updated: 2021/12/05 13:25:32 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void exception()
+void	*ft_memcpy(void *dest, const void *source, size_t num)
 {
-	write(2, "parsing_exception\n", 18);
-	exit(1);
-}
+	size_t					i;
+	unsigned char			*temp_dst;
+	const unsigned char		*temp_src;
 
-void	memory_exception()
-{
-	write(2, "memory_exception\n", 17);
-	exit(1);
-}
-
-void map_exception()
-{
-	write(2, "Error\n", 6);
-	exit(1);
+	i = 0;
+	temp_dst = dest;
+	temp_src = source;
+	if (dest == (void *)0 && source == (void *)0)
+		return (dest);
+	while (i < num)
+	{
+		temp_dst[i] = temp_src[i];
+		i++;
+	}
+	return (dest);
 }

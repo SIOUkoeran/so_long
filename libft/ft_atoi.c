@@ -1,31 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exception.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/07 16:12:38 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/08 15:58:39 by mkim3            ###   ########.fr       */
+/*   Created: 2021/11/16 16:22:27 by mkim3             #+#    #+#             */
+/*   Updated: 2021/12/22 21:50:57 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void exception()
+static int	ft_isspace(char c)
 {
-	write(2, "parsing_exception\n", 18);
-	exit(1);
+	if ((c >= 9 && c <= 13) || c == ' ')
+	{
+		return (1);
+	}
+	return (0);
 }
 
-void	memory_exception()
+int	ft_atoi(const char *s)
 {
-	write(2, "memory_exception\n", 17);
-	exit(1);
-}
+	int	sign;
+	int	result;
 
-void map_exception()
-{
-	write(2, "Error\n", 6);
-	exit(1);
+	result = 0;
+	sign = 1;
+	while (ft_isspace(*s))
+		s++;
+	if (*s == '-' || *s == '+')
+	{
+		if (*s == '-')
+			sign *= -1;
+		s++;
+	}
+	while (*s >= '0' && *s <= '9')
+	{
+		result = result * 10 + ((int)*s - '0');
+		s++;
+	}
+	return (result * sign);
 }

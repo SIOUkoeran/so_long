@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exception.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/07 16:12:38 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/08 15:58:39 by mkim3            ###   ########.fr       */
+/*   Created: 2021/11/16 15:14:35 by mkim3             #+#    #+#             */
+/*   Updated: 2021/12/22 22:04:23 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void exception()
+void	*ft_memchr(const void *buf, int c, size_t count)
 {
-	write(2, "parsing_exception\n", 18);
-	exit(1);
-}
+	size_t				i;
+	unsigned char		*temp;
 
-void	memory_exception()
-{
-	write(2, "memory_exception\n", 17);
-	exit(1);
-}
-
-void map_exception()
-{
-	write(2, "Error\n", 6);
-	exit(1);
+	temp = (unsigned char *) buf;
+	i = 0;
+	while (i < count)
+	{
+		if (temp[i] == (unsigned char)c)
+		{
+			return (temp + i);
+		}
+		i++;
+	}
+	return (0);
 }
