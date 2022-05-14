@@ -6,7 +6,7 @@
 #    By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/09 16:26:27 by mkim3             #+#    #+#              #
-#    Updated: 2022/05/09 21:14:51 by mkim3            ###   ########.fr        #
+#    Updated: 2022/05/14 19:56:10 by mkim3            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME=so_long
 GCC=gcc
 FLAG=-Werror -Wall -Wextra
 
-SRCS=./so_long.c ./read_map.c ./get_next_line.c ./exception.c
+SRCS=./so_long.c ./read_map.c ./get_next_line.c ./exception.c ./move_character.c ./print_image.c
 OBJS=$(SRCS:.c=.o)
 
 LIBFT=libft.a

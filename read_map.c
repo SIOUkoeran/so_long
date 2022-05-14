@@ -6,7 +6,7 @@
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 16:25:55 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/14 18:59:27 by mkim3            ###   ########.fr       */
+/*   Updated: 2022/05/14 20:43:53 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	ft_check_map(char **map, t_map_info *s_map_info)
 	check_map_info(map_info);
 	s_map_info->height = row_idx;
 	s_map_info->width = col_idx;
+	s_map_info->item_cnt = map_info.c;
 }
 
 t_map_info	ft_read_map(int fd)
@@ -103,10 +104,12 @@ t_map_info	ft_read_map(int fd)
 			map_temp = ft_strjoin(map_temp, temp);
 		if (!map_temp)
 			memory_exception();
+		free(temp);
 		temp = get_next_line(fd);
 	}
 	map = ft_split(map_temp, '\n');
 	ft_check_map(map, &map_info);
+	free(map_temp);
 	map_info.map = map;
 	return (map_info);
 }

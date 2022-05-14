@@ -6,12 +6,13 @@
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:36:57 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/14 19:03:26 by mkim3            ###   ########.fr       */
+/*   Updated: 2022/05/14 20:50:59 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "stdio.h"
+
 static void ft_check_file_name_extension(char *file_name)
 {
 	int	idx = -1;
@@ -28,46 +29,15 @@ static void ft_check_file_name_extension(char *file_name)
 		map_exception();
 }
 
-static int	ft_key_event(int key, t_param s_param)
+static void	ft_set_game_info(t_map_info *s_map_info, t_game_info *game_info)
 {
-	static int	a = 0;
-
-	if (key == W)
-		s_param.y++;
-	else if (key == A)
-		s_param.x--;
-	else if (key == S)
-		s_param.y--;
-	else if (key == D)
-		s_param.x++;
-	return (0);
+	game_info->item_cnt = s_map_info->item_cnt;
+	game_info->height = s_map_info->height;
+	game_info->width = s_map_info->width;
+	game_info->map = s_map_info->map;
 }
 
-static void ft_set_image(t_map_info s_map_info, void *mlx, void *win, t_game_info game_info)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (	s_map_info.map[++i])
-	{
-		j = -1;
-		while (s_map_info.map[i][++j])
-		{
-			printf("%d %d \n", i, j);
-			if (s_map_info.map[i][j] == '1')
-				mlx_put_image_to_window(mlx, win, game_info.img_wall, j * 64, i * 64);
-			else if (s_map_info.map[i][j] == 'P')
-				mlx_put_image_to_window(mlx, win, game_info.img_character, j * 64, i * 64);
-			else if (s_map_info.map[i][j] == 'E')
-				mlx_put_image_to_window(mlx, win, game_info.img_wall, j * 64, i * 64);
-			else if (s_map_info.map[i][j] == 'C')
-				mlx_put_image_to_window(mlx, win, game_info.img_item, j * 64, i * 64);
-		}
-	}
-}
-
-static t_game_info	ft_insert_game_info(void *mlx, t_game_info game_info)
+static t_game_info	ft_insert_game_info(t_map_info map_info, void *mlx, t_game_info game_info, void *win)
 {
 	int width;
 	int height;
@@ -80,8 +50,18 @@ static t_game_info	ft_insert_game_info(void *mlx, t_game_info game_info)
 	, &width, &height);
 	game_info.img_item = mlx_xpm_file_to_image(mlx, "./image/item.xpm"\
 	, &width, &height);
+	game_info.img_exit = mlx_xpm_file_to_image(mlx, "./image/exit.xpm"\
+	, &width, &height);
+	game_info.mlx = mlx;
+	game_info.win = win;
+	game_info.map = map_info.map;
+	game_info.item_cnt = map_info.item_cnt;
+	game_info.height = map_info.height;
+	game_info.width = map_info.width;
+	game_info.walks = 1;
 	return (game_info);
 }
+
 static void ft_display_map(t_map_info map_info)
 {
 	void		*mlx;
@@ -91,11 +71,14 @@ static void ft_display_map(t_map_info map_info)
 	
 	mlx = mlx_init();
 	win = mlx_new_window(mlx ,map_info.width* 64, map_info.height * 64, "so_long");
-	game_info = ft_insert_game_info(mlx, game_info);
-	ft_set_image(map_info, mlx, win, game_info);
-	mlx_hook(win, EVENT_KEY_RELEASE, 0, &ft_key_event, &param);
+	game_info = ft_insert_game_info(map_info, mlx, game_info, win);
+	ft_set_image(&game_info);
+	mlx_hook(win, EVENT_KEY_RELEASE, 0, &ft_key_event, &game_info);
 	mlx_loop(mlx);
+	free(mlx);
+	free(win);
 }
+
 int main(int args, char **argv)
 {
 	t_map_info map_info;

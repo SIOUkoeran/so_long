@@ -6,7 +6,7 @@
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:37:12 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/14 18:59:37 by mkim3            ###   ########.fr       */
+/*   Updated: 2022/05/14 20:49:24 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <errno.h>
 # include <unistd.h>
+# include <stdio.h>
 # include "get_next_line.h"
 # include "./libft/libft.h"
 # include "./minilibx_opengl_20191021/mlx.h"
@@ -48,6 +49,7 @@ typedef struct s_map_info {
 	int		fd;
 	int		height;
 	int		width;
+	int		item_cnt;
 } t_map_info;
 
 typedef struct s_param {
@@ -56,14 +58,34 @@ typedef struct s_param {
 } t_param;
 
 typedef struct s_game_info {
-	void *img_wall;
-	void *img_road;
-	void *img_item;
-	void *img_character;
+	void 	*img_wall;
+	void 	*img_road;
+	void 	*img_item;
+	void 	*img_character;
+	void	*img_exit;
+	void	*mlx;
+	void	*win;
+	int		item_cnt;
+	int		x;
+	int		y;
+	int		height;
+	int		width;
+	int		walks;
+	char 	**map;
 } t_game_info;
-void	exception();
-void	memory_exception();
-void	map_exception();
+
+typedef struct s_character_info {
+	int walk_cnt;
+	int	item;
+} t_character_info;
+
+void		exception();
+void		memory_exception();
+void		map_exception();
 t_map_info	ft_read_map(int fd);
-void	ft_check_map(char **map, t_map_info *map_info);
+void		ft_check_map(char **map, t_map_info *map_info);
+void		ft_set_image(t_game_info *game_info);
+void		move(t_game_info *game_info, int next_x, int next_y);
+void		ft_set_image_64pixel(t_game_info *s_game_info, int x, int y, char c);
+int			ft_key_event(int key, t_game_info *game_info);
 #endif
