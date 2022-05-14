@@ -6,7 +6,7 @@
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:37:12 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/14 17:44:54 by mkim3            ###   ########.fr       */
+/*   Updated: 2022/05/14 18:59:37 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ typedef struct s_check_map {
 	int	p;
 	int	wall;
 	int	road;
-	int	height;
-	int	weight;
 } t_check_map;
 
 typedef struct s_data {
@@ -48,6 +46,8 @@ typedef struct s_data {
 typedef struct s_map_info {
 	char	**map;
 	int		fd;
+	int		height;
+	int		width;
 } t_map_info;
 
 typedef struct s_param {
@@ -64,6 +64,6 @@ typedef struct s_game_info {
 void	exception();
 void	memory_exception();
 void	map_exception();
-char	**ft_read_map(int fd);
-void	ft_check_map(char **map);
+t_map_info	ft_read_map(int fd);
+void	ft_check_map(char **map, t_map_info *map_info);
 #endif

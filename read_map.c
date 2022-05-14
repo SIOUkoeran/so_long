@@ -6,7 +6,7 @@
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 16:25:55 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/14 17:25:00 by mkim3            ###   ########.fr       */
+/*   Updated: 2022/05/14 18:59:27 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	check_map_info(t_check_map info)
 		map_exception();
 }
 
-void	ft_check_map(char **map)
+void	ft_check_map(char **map, t_map_info *s_map_info)
 {
 	t_check_map	map_info;
 	int			col_idx;
@@ -80,14 +80,17 @@ void	ft_check_map(char **map)
 	}
 	ft_check_wall(map[row_idx - 1], ROWCHECK, '1');
 	check_map_info(map_info);
+	s_map_info->height = row_idx;
+	s_map_info->width = col_idx;
 }
 
-char	**ft_read_map(int fd)
+t_map_info	ft_read_map(int fd)
 {
-	char	*map_temp;
-	char	*temp;
-	char	**map;
-
+	char		*map_temp;
+	char		*temp;
+	char		**map;
+	t_map_info map_info;
+	
 	temp = get_next_line(fd);
 	map_temp = NULL;
 	if (!temp)
@@ -103,6 +106,7 @@ char	**ft_read_map(int fd)
 		temp = get_next_line(fd);
 	}
 	map = ft_split(map_temp, '\n');
-	ft_check_map(map);
-	return (map);
+	ft_check_map(map, &map_info);
+	map_info.map = map;
+	return (map_info);
 }
