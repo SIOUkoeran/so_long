@@ -6,13 +6,13 @@
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 16:25:55 by mkim3             #+#    #+#             */
-/*   Updated: 2022/05/14 20:43:53 by mkim3            ###   ########.fr       */
+/*   Updated: 2022/06/15 18:10:25 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void ft_check_wall(char *map, int flag, char position)
+static void	ft_check_wall(char *map, int flag, char position)
 {
 	int	idx;
 
@@ -80,9 +80,7 @@ void	ft_check_map(char **map, t_map_info *s_map_info)
 	}
 	ft_check_wall(map[row_idx - 1], ROWCHECK, '1');
 	check_map_info(map_info);
-	s_map_info->height = row_idx;
-	s_map_info->width = col_idx;
-	s_map_info->item_cnt = map_info.c;
+	ft_insert_map_info(row_idx, col_idx, s_map_info, map_info);
 }
 
 t_map_info	ft_read_map(int fd)
@@ -90,8 +88,8 @@ t_map_info	ft_read_map(int fd)
 	char		*map_temp;
 	char		*temp;
 	char		**map;
-	t_map_info map_info;
-	
+	t_map_info	map_info;
+
 	temp = get_next_line(fd);
 	map_temp = NULL;
 	if (!temp)

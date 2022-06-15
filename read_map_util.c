@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exception.c                                        :+:      :+:    :+:   */
+/*   read_map_util.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/07 16:12:38 by mkim3             #+#    #+#             */
-/*   Updated: 2022/06/15 18:20:29 by mkim3            ###   ########.fr       */
+/*   Created: 2022/06/15 17:56:23 by mkim3             #+#    #+#             */
+/*   Updated: 2022/06/15 18:18:11 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	exception(void)
+void	ft_insert_map_info(int r, int c, t_map_info *m, t_check_map cm)
 {
-	write(2, "parsing_exception\n", 18);
-	exit(1);
-}
-
-void	memory_exception(void)
-{
-	write(2, "memory_exception\n", 17);
-	exit(1);
-}
-
-void	map_exception(void)
-{
-	write(2, "Error\n", 6);
-	exit(1);
+	m->height = r;
+	m->width = c;
+	m->item_cnt = cm.c;
 }
