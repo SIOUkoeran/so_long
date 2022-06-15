@@ -6,7 +6,7 @@
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:36:57 by mkim3             #+#    #+#             */
-/*   Updated: 2022/06/15 18:05:32 by mkim3            ###   ########.fr       */
+/*   Updated: 2022/06/15 20:28:14 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,9 @@ static void	ft_display_map(t_map_info m)
 	win = mlx_new_window(mlx, m.width * 64, m.height * 64, "so_long");
 	game_info = ft_insert(m, mlx, game_info, win);
 	ft_set_image(&game_info);
-	mlx_hook(win, EVENT_KEY_RELEASE, 0, &ft_key_event, &game_info);
+	mlx_hook(win, EVENT_KEY_RELEASE, 0, ft_key_event, &game_info);
+	mlx_hook(win, 17, 0, ft_close, &game_info);
 	mlx_loop(mlx);
-	free(mlx);
-	free(win);
 }
 
 int	main(int args, char **argv)

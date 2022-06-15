@@ -6,7 +6,7 @@
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:37:12 by mkim3             #+#    #+#             */
-/*   Updated: 2022/06/15 18:19:36 by mkim3            ###   ########.fr       */
+/*   Updated: 2022/06/15 20:29:00 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define A 0
 # define S 1
 # define D 2
+# define ESC 53
 # define EVENT_KEY 2
 # define EVENT_KEY_RELEASE 3
 # include <stdlib.h>
@@ -90,4 +91,6 @@ void		move(t_game_info *game_info, int next_x, int next_y);
 void		ft_set_image_64pixel(t_game_info *s, int x, int y, char c);
 int			ft_key_event(int key, t_game_info *game_info);
 void		ft_insert_map_info(int r, int c, t_map_info *m, t_check_map cm);
+void		ft_free_game_info(t_game_info *game_info);
+int			ft_close(t_game_info *g);
 #endif

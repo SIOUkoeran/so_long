@@ -6,7 +6,7 @@
 /*   By: mkim3 <mkim3@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 19:13:02 by mkim3             #+#    #+#             */
-/*   Updated: 2022/06/15 18:17:46 by mkim3            ###   ########.fr       */
+/*   Updated: 2022/06/15 20:32:52 by mkim3            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,16 @@ int	ft_key_event(int key, t_game_info *game_info)
 	char	**map;
 
 	map = game_info->map;
-	if (key == W)
-	{
-		if (map[game_info->x - 1][game_info->y])
-			move(game_info, game_info->x - 1, game_info->y);
-	}
-	else if (key == A)
-	{
-		if (map[game_info->x][game_info->y - 1])
-			move(game_info, game_info->x, game_info->y - 1);
-	}
-	else if (key == S)
-	{
-		if (map[game_info->x + 1][game_info->y])
-			move(game_info, game_info->x + 1, game_info->y);
-	}	
-	else if (key == D)
-		if (map[game_info->x][game_info->y + 1])
-			move(game_info, game_info->x, game_info->y + 1);
+	if (key == W && map[game_info->x - 1][game_info->y])
+		move(game_info, game_info->x - 1, game_info->y);
+	else if (key == A && map[game_info->x][game_info->y - 1])
+		move(game_info, game_info->x, game_info->y - 1);
+	else if (key == S && map[game_info->x + 1][game_info->y])
+		move(game_info, game_info->x + 1, game_info->y);
+	else if (key == D && map[game_info->x][game_info->y + 1])
+		move(game_info, game_info->x, game_info->y + 1);
+	else if (key == ESC)
+		exit(0);
 	return (0);
 }
 
@@ -52,7 +44,7 @@ static void	ft_move_character(t_game_info *game_info, int next_x, int next_y)
 	ft_change_position(game_info, next_x, next_y);
 }
 
-static void	ft_free_game_info(t_game_info *game_info)
+void	ft_free_game_info(t_game_info *game_info)
 {
 	int	i;
 
